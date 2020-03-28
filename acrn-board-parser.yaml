@@ -1,0 +1,66 @@
+# File:         acrn-board-parser.yaml
+# Use Case:     Bootable live image which boots and captures the board info
+#               of the target platform for ACRN offline configuration tool.
+
+# switch between aliases if you want to install to an actual block device
+# i.e /dev/sda
+block-devices: [
+   {name: "bdevice", file: "acrn-board-parser.img"}
+]
+
+targetMedia:
+- name: ${bdevice}
+  type: disk
+  children:
+  - name: ${bdevice}1
+    fstype: vfat
+    mountpoint: /boot
+    size: "150M"
+    type: part
+  - name: ${bdevice}2
+    fstype: swap
+    size: "32M"
+    type: part
+  - name: ${bdevice}3
+    fstype: ext4
+    mountpoint: /
+    size: "3.0G"
+    type: part
+  - name: ${bdevice}4
+    fstype: vfat
+    mountpoint: /opt/workspace
+    size: "200M"
+    type: part
+
+bundles: [
+  os-core,
+  os-core-update,
+  clr-installer,
+  vim,
+  git,
+  sysadmin-basic,
+  performance-tools
+  ]
+
+offline: true
+
+autoUpdate: false
+postArchive: false
+postReboot: false
+telemetry: false
+iso: false
+isoPublisher: Intel Corporation
+isoApplicationId: server
+keepImage: true
+autoUpdate: false
+copySwupd: false
+
+keyboard: us
+language: en_US.UTF-8
+kernel: kernel-native
+
+post-install: [
+   {cmd: "${yamlDir}/acrn-board-parser-post-install.sh ${chrootDir}"},
+]
+
+version: 0

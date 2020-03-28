@@ -1,0 +1,8 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/opt/workspace/acrn-board-parser.sh
+
+[Install]
+WantedBy=default.target
