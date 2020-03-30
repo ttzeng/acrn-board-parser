@@ -43,18 +43,23 @@ Build Instructions
 
 #. The ACRN board parser runs automatically during the system start up,
    it detects the hardware resources and writes the report to
-   :file:`/opt/workspace/acrn-hypervisor/misc/acrn-config/target/out/target.xml`.
+   :file:`/opt/workspace/acrn-hypervisor/misc/acrn-config/target/out/<board_name>.xml`,
+   where *<board_name>* is the name of the target board defined in the
+   :abbr:`DMI (Desktop Management Interface)` firmware table.
 
-   You don't even need to log in Clear Linux OS on the target device.
+   .. note::
+      Though you don't need to log in the Clear Linux OS on target board,
+      it's recommended to press the power button to shutdown the device,
+      to ensure the board info is written back to the USB key.
 
 #. Plug the USB key to your development workstation, mount the 4th partition
-   of the USB key, and copy the captured board info :file:`target.xml` for being
-   imported by the web app of ACRN offline configuration tool.
+   of the USB key, and copy the captured board info file *<board_name>.xml*
+   to be imported by the web app of ACRN offline configuration tool.
 
     .. code-block:: console
 
         $ sudo mount /dev/sdb4 /mnt
-        $ cp /mnt/acrn-hypervisor/misc/acrn-config/target/out/target.xml ~
+        $ cp /mnt/acrn-hypervisor/misc/acrn-config/target/out/<board_name>.xml ~
 
 .. _ACRN: https://projectacrn.github.io/latest/index.html
 .. _ACRN configuration tool: https://projectacrn.github.io/latest/tutorials/acrn_configuration_tool.html
