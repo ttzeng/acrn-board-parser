@@ -1,8 +1,10 @@
 [Unit]
-After=network.target
+After=getty.target
 
 [Service]
 ExecStart=/opt/workspace/acrn-board-parser.sh
+StandardOutput=tty
+TTYPath=/dev/tty0
 
 [Install]
 WantedBy=default.target
